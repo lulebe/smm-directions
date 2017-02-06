@@ -2,6 +2,9 @@ const $ = require('jquery')
 
 const renderer = require('../../renderer')
 
+const voiceDE = require('./voice_de')
+const voiceEN = require('./voice_en')
+
 const typeIcons = {
   'RAIL': 'tram.png',
   'METRO_RAIL': 'tram.png',
@@ -61,10 +64,30 @@ function parseRoute (route) {
         end: step.transit_details.arrival_stop.name,
         vehicle: {
           name: step.transit_details.line.short_name,
+          longName: step.transit_details.line.vehicle.name + ' ' + step.transit_details.line.short_name,
           type: step.transit_details.line.vehicle.type
         }
       }))
   return ret
+}
+
+function getRouteTo (place, cb) {
+  const pos = renderer.getSettings().location
+  const url = 'https://maps.googleapis.com/maps/api/directions/json?key=' +
+      renderer.getSettings().googleAPIKey +
+      '&origin=' +
+      pos.lat+','+pos.lng  +
+      '&destination=' +
+      place +
+      '&mode=transit'
+  $.get(url).then(directions => {
+    if (directions.status != 'OK')
+      cb(true, null)
+    else
+      cb(null, parseRoute(directions.routes[0]))
+  }, () => {
+    cb(true, null)
+  })
 }
 
 function addLeadingZero(val) {
@@ -90,29 +113,19 @@ function renderStatusRoute (route, dom) {
 
 
 module.exports = function (data) {
+  voiceDE(data, getRouteTo)
+  voiceEN(data, getRouteTo)
   return {
     renderStatus: function (domNode) {
       if (!data.Status_Address) {
-        domNode.text('Use the app to define your commute destination.')
+        domNode.html('Use the app to define your commute destination.')
         return
       }
-      const pos = renderer.getSettings().location
-      const url = 'https://maps.googleapis.com/maps/api/directions/json?key=' +
-          renderer.getSettings().googleAPIKey +
-          '&origin=' +
-          pos.lat+','+pos.lng  +
-          '&destination=' +
-          data.Status_Address +
-          '&mode=transit'
-      $.get(url).then(directions => {
-        if (directions.status != 'OK') {
-          domNode.text("We couldn't find a connection")
-          return
-        }
-        const route = parseRoute(directions.routes[0])
-        renderStatusRoute(route, domNode)
-      }, () => {
-        domNode.text('Unfortunately there was an error while connecting to Google')
+      getRouteTo(data.Status_Address, (err, route) => {
+        if (err)
+          domNode.html('Unfortunately there was an error getting a route')
+        else
+          renderStatusRoute(route, domNode)
       })
     }
   }
