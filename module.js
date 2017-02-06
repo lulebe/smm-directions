@@ -46,16 +46,6 @@ const statusRouteTpl = require('dot').template(`
   </div>
 `)
 
-function getPos (cb) {
-  $.get('https://maps.googleapis.com/maps/api/browserlocation/json?browser=chromium&sensor=true')
-  .then(data => {
-    if (data.status == 'OK')
-      cb(null, data.location)
-    else
-      cb(true, null)
-  })
-}
-
 
 function parseRoute (route) {
   console.log(route)
