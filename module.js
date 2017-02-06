@@ -24,11 +24,11 @@ const typeIcons = {
 
 const statusRouteTpl = require('dot').template(`
   <div class="smm-directions-container">
-    <span style="font-size: 80%;">Next connection</span><br>
+    <span class="smm-directions-s-heading">Next connection</span><br>
     {{~it.vehicles :value}}
-      <div style="border: 2px solid #666; display: inline-block; border-radius: 8px; padding: 2px;">
+      <div class="smm-directions-s-vehicle">
         <img src="modules/directions/{{=value.icon}}"/>
-        <span style="position:relative; top: -4px; left: -4px;">{{=value.name}}</span>
+        <span class="smm-directions-s-vehicle-text">{{=value.name}}</span>
       </div>
     {{~}}
     <table>

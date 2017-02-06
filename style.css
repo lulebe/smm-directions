@@ -1,0 +1,16 @@
+.smm-directions-s-heading {
+  font-size: 80%;
+}
+
+.smm-directions-s-vehicle {
+  border: 2px solid #666;
+  display: inline-block;
+  border-radius: 8px;
+  padding: 2px;
+}
+
+.smm-directions-s-vehicle-text {
+  position:relative;
+  top: -4px;
+  left: -4px;
+}
