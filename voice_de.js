@@ -56,12 +56,18 @@ module.exports = function (data, getRouteTo) {
   }
 
   speech.addCommands({
-    "(Was) (Wie) (Wann) (ist die) (nächste) Verbindung zu *place": navigateTo,
-    "(Was) (Wie) (Wann) (ist die) (nächste) Verbindung zur *place": navigateTo,
-    "(Was) (Wie) (Wann) (ist die) (nächste) Bahn zu *place": navigateTo,
-    "(Was) (Wie) (Wann) (ist die) (nächste) Bahn zur *place": navigateTo,
-    "(Was) (Wie) (Wann) (ist die) (nächste) Bus zu *place": navigateTo,
-    "(Was) (Wie) (Wann) (ist die) (nächste) Bus zur *place": navigateTo
+    "(Was) (Wie) (Wann) (Welche) (ist) (fährt) (der) (die) (nächste) Verbindung zu *place": navigateTo,
+    "(Was) (Wie) (Wann) (Welche) (ist) (fährt) (der) (die) (nächste) Verbindung zur *place": navigateTo,
+    "(Was) (Wie) (Wann) (Welche) (ist) (fährt) (der) (die) (nächste) Verbindung zum *place": navigateTo,
+    "(Was) (Wie) (Wann) (Welche) (ist) (fährt) (der) (die) (nächste) Verbindung nach *place": navigateTo,
+    "(Was) (Wie) (Wann) (Welche) (ist) (fährt) (der) (die) (nächste) Bahn zu *place": navigateTo,
+    "(Was) (Wie) (Wann) (Welche) (ist) (fährt) (der) (die) (nächste) Bahn zur *place": navigateTo,
+    "(Was) (Wie) (Wann) (Welche) (ist) (fährt) (der) (die) (nächste) Bahn zum *place": navigateTo,
+    "(Was) (Wie) (Wann) (Welche) (ist) (fährt) (der) (die) (nächste) Bahn nach *place": navigateTo,
+    "(Was) (Wie) (Wann) (Welche) (ist) (fährt) (der) (die) (nächste) Bus zu *place": navigateTo,
+    "(Was) (Wie) (Wann) (Welche) (ist) (fährt) (der) (die) (nächste) Bus zur *place": navigateTo,
+    "(Was) (Wie) (Wann) (Welche) (ist) (fährt) (der) (die) (nächste) Bus zum *place": navigateTo,
+    "(Was) (Wie) (Wann) (Welche) (ist) (fährt) (der) (die) (nächste) Bus nach *place": navigateTo
   })
 
 }
