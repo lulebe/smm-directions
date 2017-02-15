@@ -22,7 +22,8 @@ const typeIcons = {
   'CABLE_CAR': 'gondola.png',
   'GONDOLA_LIFT': 'gondola.png',
   'FUNICULAR': 'gondola.png',
-  'OTHER': 'other.png'
+  'OTHER': 'other.png',
+  undefined: 'train.png'
 }
 
 const statusRouteTpl = require('dot').template(`
