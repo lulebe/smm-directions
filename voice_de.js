@@ -1,16 +1,15 @@
 const speech = require('../../speech/recognition')
 
 const renderer = require('../../renderer')
-const speak = require('../../speech/speak').speak
 
 statusPlaces = ['arbeit', 'schule', 'uni', 'universität']
 
 module.exports = function (data, getRouteTo) {
 
   const voiceError = () => {
-    speak("Entschuldigung, ich konnte keine Route finden.", 'DE', () => {
+    responsiveVoice.speak("Entschuldigung, ich konnte keine Route finden.", 'Deutsch Female', {onend: () => {
       renderer.showVoiceOverlay(false)
-    })
+    }})
   }
 
   const respondWithRoute = (route) => {
@@ -32,9 +31,9 @@ module.exports = function (data, getRouteTo) {
     const text = "Geh um " + startTime + " los, um um " + endTime +
         " anzukommen. Deine Route ist von " + startPlace + " zu " + endPlace +
         " mit " + steps
-    speak(text, 'DE', () => {
+    responsiveVoice.speak(text, 'Deutsch Female', {onend: () => {
       renderer.showVoiceOverlay(false)
-    })
+    }})
   }
 
   const navigateTo = (place) => {
