@@ -1,15 +1,16 @@
 const speech = require('../../speech/recognition')
 
 const renderer = require('../../renderer')
+const speak = require('../../speech/speak').speak
 
 statusPlaces = ['work', 'school', 'uni', 'university']
 
 module.exports = function () {
 
   const voiceError = () => {
-    responsiveVoice.speak("I'm sorry, there was an error.", 'UK English Male', {onend: () => {
+    speak("I'm sorry, there was an error.", 'EN', () => {
       renderer.showVoiceOverlay(false)
-    }})
+    })
   }
 
   const respondWithRoute = (route) => {
@@ -31,9 +32,9 @@ module.exports = function () {
     const text = "Leave at " + startTime + " to arrive at " + endTime +
         " . Your Route is from " + startPlace + " to " + endPlace +
         " with " + steps
-    responsiveVoice.speak(text, 'UK English Male', {onend: () => {
+    speak(text, 'EN', () => {
       renderer.showVoiceOverlay(false)
-    }})
+    })
   }
 
   const navigateTo = (place) => {
