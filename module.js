@@ -84,7 +84,7 @@ const mapStyle = [
         "elementType": "geometry.fill",
         "stylers": [
             {
-                "color": "#ffffff"
+                "color": "#444444"
             },
             {
                 "weight": 1
@@ -96,7 +96,7 @@ const mapStyle = [
         "elementType": "geometry.stroke",
         "stylers": [
             {
-                "color": "#ffffff"
+                "color": "#666666"
             },
             {
                 "weight": 0.8
