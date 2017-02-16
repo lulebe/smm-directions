@@ -4,7 +4,7 @@ const renderer = require('../../renderer')
 
 statusPlaces = ['arbeit', 'schule', 'uni', 'universität']
 
-module.exports = function (data, getRouteTo) {
+module.exports = function (data, getRouteTo, windowRenderRoute) {
 
   const voiceError = () => {
     responsiveVoice.speak("Entschuldigung, ich konnte keine Route finden.", 'Deutsch Female', {onend: () => {
@@ -42,15 +42,19 @@ module.exports = function (data, getRouteTo) {
       getRouteTo(data.Status_Address, (err, route) => {
         if (err)
           voiceError()
-        else
+        else {
           respondWithRoute(route)
+          windowRenderRoute(data.Status_Address)
+        }
       })
     } else { //search for address
       getRouteTo(place, (err, route) => {
         if (err)
           voiceError()
-        else
+        else {
           respondWithRoute(route)
+          windowRenderRoute(place)
+        }
       })
     }
   }

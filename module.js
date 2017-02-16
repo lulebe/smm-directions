@@ -5,6 +5,136 @@ const renderer = require('../../renderer')
 const voiceDE = require('./voice_de')
 const voiceEN = require('./voice_en')
 
+
+const mapStyle = [
+    {
+        "featureType": "all",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#ffffff"
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "color": "#000000"
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#000000"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#ffffff"
+            },
+            {
+                "weight": 1
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "color": "#ffffff"
+            },
+            {
+                "weight": 0.8
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "on"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    }
+]
+
+
+
+
 const typeIcons = {
   'RAIL': 'tram.png',
   'METRO_RAIL': 'tram.png',
@@ -112,10 +242,46 @@ function renderStatusRoute (route, dom) {
   }))
 }
 
+function renderWindowRoute (place) {
+const win = renderer.openWindow()
+const mapDiv = $('<div style="width: 100%; height: 100%;" id="smm-directions-map"></div>')
+win.append(mapDiv)
+  window.smmDirectionsRender = () => {
+    const map = new google.maps.Map(document.getElementById('smm-directions-map'), {
+      center: renderer.getSettings().location,
+      scrollwheel: false,
+      zoom: 9,
+      styles: mapStyle,
+      disableDefaultUI: true
+    });
+
+    const directionsDisplay = new google.maps.DirectionsRenderer({
+      map: map
+    });
+
+    // Set destination, origin and travel mode.
+    const request = {
+      destination: place,
+      origin: renderer.getSettings().location,
+      travelMode: 'TRANSIT'
+    };
+
+    // Pass the directions request to the directions service.
+    const directionsService = new google.maps.DirectionsService();
+    directionsService.route(request, function(response, status) {
+      if (status == 'OK') {
+        // Display the route on the map.
+        directionsDisplay.setDirections(response);
+      }
+    });
+  }
+  win.append('<script src="https://maps.googleapis.com/maps/api/js?key=' + renderer.getSettings().googleAPIKey + '&callback=smmDirectionsRender"></script>')
+}
+
 
 module.exports = function (data) {
-  voiceDE(data, getRouteTo)
-  voiceEN(data, getRouteTo)
+  voiceDE(data, getRouteTo, renderWindowRoute)
+  voiceEN(data, getRouteTo, renderWindowRoute)
   return {
     renderStatus: function (domNode) {
       if (!data.Status_Address) {
