@@ -31,9 +31,8 @@ module.exports = function () {
     const text = "Leave at " + startTime + " to arrive at " + endTime +
         " . Your Route is from " + startPlace + " to " + endPlace +
         " with " + steps
-    responsiveVoice.speak(text, 'UK English Male', {onend: () => {
-      renderer.showVoiceOverlay(false)
-    }})
+    responsiveVoice.speak(text, 'UK English Male')
+    renderer.showVoiceOverlay(false)
   }
 
   const navigateTo = (place) => {

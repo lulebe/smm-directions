@@ -31,9 +31,8 @@ module.exports = function (data, getRouteTo, windowRenderRoute) {
     const text = "Geh um " + startTime + " los, um um " + endTime +
         " anzukommen. Deine Route ist von " + startPlace + " zu " + endPlace +
         " mit " + steps
-    responsiveVoice.speak(text, 'Deutsch Female', {onend: () => {
-      renderer.showVoiceOverlay(false)
-    }})
+    responsiveVoice.speak(text, 'Deutsch Female')
+    renderer.showVoiceOverlay(false)
   }
 
   const navigateTo = (place) => {
