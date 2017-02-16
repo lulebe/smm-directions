@@ -21,6 +21,8 @@ module.exports = function () {
     const endPlace = route.steps[route.steps.length-1].end
     let steps = ""
     for (let i = 0; i < route.steps.length; i++) {
+      if (parseInt(route.steps[i].vehicle.name))
+        route.steps[i].vehicle.name = 'line ' + route.steps[i].vehicle.name
       if (i == 0)
         steps = route.steps[0].vehicle.longName
       else if (i == route.steps.length-1)
