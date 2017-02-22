@@ -161,18 +161,18 @@ const statusRouteTpl = require('dot').template(`
     <span class="smm-directions-s-heading">Next connection</span><br>
     {{~it.vehicles :value}}
       <div class="smm-directions-s-vehicle">
-        <img src="modules/directions/{{=value.icon}}"/>
+        <img src="modules/smm-directions/{{=value.icon}}"/>
         <span class="smm-directions-s-vehicle-text">{{=value.name}}</span>
       </div>
     {{~}}
     <table>
       <tr>
-        <td><img src="modules/directions/start.png" alt="start" /></td>
+        <td><img src="modules/smm-directions/start.png" alt="start" /></td>
         <td>{{=it.startPos}}</td>
         <td><strong>{{=it.startTime}}</strong></td>
       </tr>
       <tr>
-        <td><img src="modules/directions/end.png" alt="end" /></td>
+        <td><img src="modules/smm-directions/end.png" alt="end" /></td>
         <td>{{=it.endPos}}</td>
         <td><strong>{{=it.endTime}}</strong></td>
       </tr>
